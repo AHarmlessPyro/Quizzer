@@ -1,0 +1,123 @@
+{
+    "file": "Task-1",
+    "questionCount": 10,
+    "notice": null,
+    "questions": [
+        {
+            "index": 1,
+            "question": "What is the pin code of NMB",
+            "answer": [
+                "110023",
+                "110021",
+                "100001",
+                "834008"
+            ],
+            "correct": 0
+        },
+        {
+            "index": 2,
+            "question": "Name of the NMB's nearest Metro Station ?",
+            "answer": [
+                "a",
+                "b",
+                "c",
+                "d"
+            ],
+            "correct": 1
+        },
+        {
+            "index": 3,
+            "question": "Name of the bank whose ATM is located in NMB ?",
+            "answer": [
+                "a",
+                "b",
+                "c",
+                "d"
+            ],
+            "correct": 2
+        },
+        {
+            "index": 4,
+            "question": "In which district of New Delhi does NMB lie in ?",
+            "answer": [
+                "a",
+                "b",
+                "c",
+                "d"
+            ],
+            "correct": 3
+        },
+        {
+            "index": 5,
+            "question": "Which organisaation has opened a store similar to Kendriya Bhandar in NMB clib house ?",
+            "answer": [
+                "a",
+                "b",
+                "c",
+                "d"
+            ],
+            "correct": 0
+        },
+        {
+            "index": 6,
+            "question": "Under which police station's jurisdiction does NMB lie in ?",
+            "answer": [
+                "a",
+                "b",
+                "c",
+                "d"
+            ],
+            "correct": 1
+        },
+        {
+            "index": 7,
+            "question": "Which Lok Sabha constituency does NMB lie in ?",
+            "answer": [
+                "a",
+                "b",
+                "c",
+                "d"
+            ],
+            "correct": 2
+        },
+        {
+            "index": 8,
+            "question": "WHat is sthe name of the play school for kids in NMB campus ?",
+            "answer": [
+                "a",
+                "b",
+                "c",
+                "d"
+            ],
+            "correct": 3
+        },
+        {
+            "index": 9,
+            "question": "Give the name of the college located next to NMB ?",
+            "answer": [
+                "a",
+                "b",
+                "c",
+                "d"
+            ],
+            "correct": 0
+        },
+        {
+            "index": 10,
+            "question": "In which year did the house allotment begin in NMB ?",
+            "answer": [
+                "a",
+                "b",
+                "c",
+                "d"
+            ],
+            "correct": 1
+        },
+        {
+            "index": 11,
+            "question": "Something went Wrong! Oops",
+            "answer": [],
+            "correct": -1
+        }
+    ]
+}
