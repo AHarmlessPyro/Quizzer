@@ -18,6 +18,8 @@ const port = process.env.PORT || 3000
 
 const jsonParser = bodyParser.json();
 
+app.set('trust proxy', 1)
+
 app.use(session({
     //store: new FileStore,
     secret: "randomSecretKey",
