@@ -6,7 +6,7 @@ const bodyParser = require('body-parser')
 const session = require('express-session')
 const cors = require('cors')
 const path = require('path')
-//const FileStore = require('session-file-store')(session)
+const FileStore = require('session-file-store')(session)
 
 const files = {
     "t1": JSON.parse(fs.readFileSync('./quiz/task1.json').toString()),
@@ -24,11 +24,12 @@ const jsonParser = bodyParser.json();
 app.set('trust proxy', 1)
 
 app.use(session({
-    //store: new FileStore,
+    store: new FileStore,
     secret: "randomSecretKey",
     resave: false,
     saveUninitialized: true,
     cookie: {
+        maxAge: 14400000,
         secure: true,
         sameSite: 'none'
     }
@@ -193,42 +194,43 @@ app.get('/listOfQuizzes', (req, res) => {
 })
 
 app.get('/scores', (req, res) => {
-    // console.log(req.session)
-    // console.log(req.sessionStore.list((callbackVar) => {
-    //     console.log(callbackVar)
-    // }))
-    // let sess_count = 0
-    // console.log(FileStore.prototype.list(function session_count(a, len) {
-    //     sess_count = len;
-    //     console.log("Total active session count is " + sess_count);
-    //     console.log("============");
-    // })
-    // )
-    // let data = undefined;
-    let data = req.sessionStore.all((a, b) => {
+    let sessStore = req.sessionStore;
+    req.sessionStore.list((a, b) => {
         if (a) {
             console.error(a)
         } else {
             console.log(b)
-
-            let trueVal = Object.keys(b).map((cookieID) => {
-                return {
-                    "name": b[cookieID].name,
-                    "t1": {
-                        score: b[cookieID].quizTimeObj["t1"].score,
-                        time: b[cookieID].quizTimeObj["t1"].start - b[cookieID].quizTimeObj["t1"].end
-                    },
-                    "t2": {
-                        score: b[cookieID].quizTimeObj["t2"].score,
-                        time: b[cookieID].quizTimeObj["t2"].start - b[cookieID].quizTimeObj["t2"].end
-                    },
-                    "t3": {
-                        score: b[cookieID].quizTimeObj["t3"].score,
-                        time: b[cookieID].quizTimeObj["t3"].start - b[cookieID].quizTimeObj["t3"].end
+            console.log(sessStore)
+            let trueVal = []
+            b.forEach((cookieID) => {
+                console.log(cookieID.split('.')[0])
+                sessStore.get(cookieID.split('.')[0], (err, sess) => {
+                    if (err) {
+                        console.log(err)
+                    } else {
+                        console.log(sess)
+                        trueVal.push({
+                            "name": sess.name,
+                            "t1": {
+                                score: sess.quizTimeObj["t1"].score,
+                                time: sess.quizTimeObj["t1"].start - sess.quizTimeObj["t1"].end
+                            },
+                            "t2": {
+                                score: sess.quizTimeObj["t2"].score,
+                                time: sess.quizTimeObj["t2"].start - sess.quizTimeObj["t2"].end
+                            },
+                            "t3": {
+                                score: sess.quizTimeObj["t3"].score,
+                                time: sess.quizTimeObj["t3"].start - sess.quizTimeObj["t3"].end
+                            }
+                        })
                     }
-                }
+                    if (trueVal.length === b.length) {
+                        console.log(trueVal)
+                        res.json(trueVal)
+                    }
+                })
             })
-            res.json(trueVal)
         }
     })
 })
