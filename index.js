@@ -30,7 +30,9 @@ app.use(session({
 
 app.options(true, cors())
 
-let allow_origin_header = process.env.SRC_URL || 'http://127.0.0.1:3001'
+console.log(process.env.SRC_URL)
+
+let allow_origin_header = process.env.SRC_URL
 
 app.use(function (req, res, next) {
     res.header("Access-Control-Allow-Origin", allow_origin_header); // update to match the domain you will make the request from //,127.0.0.1,127.0.0.1:3001,127.0.0.1:3000,http://127.0.0.1:3001,http://127.0.0.1:3000,http://127.0.0.1
