@@ -22,7 +22,7 @@ app.use(session({
     //store: new FileStore,
     secret: "randomSecretKey",
     resave: false,
-    saveUninitialized: false,
+    saveUninitialized: true,
     cookie: {
         secure: true,
         sameSite: 'none'
