@@ -237,21 +237,6 @@ app.get('/scores', (req, res) => {
             res.json(trueVal)
         }
     })
-    // .map((value) => {
-    //     return {
-    //         "name": value.name,
-    //         "scoreTime": value.quizTimeObj,
-    //         "t1": value.t1_score.reduce((acc, value) => {
-    //             return acc + value
-    //         }, 0),
-    //         "t2": value.t2_score.reduce((acc, value) => {
-    //             return acc + value
-    //         }, 0),
-    //         "t3": value.t3_score.reduce((acc, value) => {
-    //             return acc + value
-    //         }, 0)
-    //     }
-    // })
 })
 
 const server = app.listen(port, () => {
