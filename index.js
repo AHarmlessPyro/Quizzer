@@ -215,21 +215,15 @@ app.get('/scores', (req, res) => {
                 return {
                     "name": b[cookieID].name,
                     "t1": {
-                        score: Object.keys(b[cookieID].t1_score).reduce((acc, value) => {
-                            return acc + b[cookieID].t1_score[value]
-                        }, 0),
+                        score: b[cookieID].quizTimeObj["t1"].score,
                         time: b[cookieID].quizTimeObj["t1"].start - b[cookieID].quizTimeObj["t1"].end
                     },
                     "t2": {
-                        score: Object.keys(b[cookieID].t2_score).reduce((acc, value) => {
-                            return acc + b[cookieID].t3_score[value]
-                        }, 0),
+                        score: b[cookieID].quizTimeObj["t2"].score,
                         time: b[cookieID].quizTimeObj["t2"].start - b[cookieID].quizTimeObj["t2"].end
                     },
                     "t3": {
-                        score: Object.keys(b[cookieID].t3_score).reduce((acc, value) => {
-                            return acc + b[cookieID].t3_score[value]
-                        }, 0),
+                        score: b[cookieID].quizTimeObj["t3"].score,
                         time: b[cookieID].quizTimeObj["t3"].start - b[cookieID].quizTimeObj["t3"].end
                     }
                 }
