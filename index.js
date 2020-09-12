@@ -5,16 +5,19 @@ const fs = require('fs')
 const bodyParser = require('body-parser')
 const session = require('express-session')
 const cors = require('cors')
+const path = require('path')
 //const FileStore = require('session-file-store')(session)
 
 const files = {
     "t1": JSON.parse(fs.readFileSync('./quiz/task1.json').toString()),
     "t2": JSON.parse(fs.readFileSync('./quiz/task2.json').toString())
 }
+const port = process.env.PORT || 3000
 
 const app = express()
 app.use(cors())
-const port = process.env.PORT || 3000
+
+app.use(express.static(path.join(__dirname, 'build')))
 
 const jsonParser = bodyParser.json();
 
@@ -45,7 +48,7 @@ app.use(function (req, res, next) {
 })
 
 app.get('/', (req, res) => {
-    res.send('Hello World');
+    res.sendFile(path.join(__dirname, 'build', 'index.html'))
 })
 
 app.post('/registerUser/:username', (req, res) => {//cors(),
