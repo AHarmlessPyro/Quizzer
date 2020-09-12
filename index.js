@@ -1,8 +1,9 @@
+const env = require('dotenv').config();
+
 const express = require('express')
 const fs = require('fs')
 const bodyParser = require('body-parser')
 const session = require('express-session')
-const env = require('dotenv').config();
 const cors = require('cors')
 //const FileStore = require('session-file-store')(session)
 
@@ -29,8 +30,10 @@ app.use(session({
 
 app.options(true, cors())
 
+let allow_origin_header = process.env.SRC_URL || 'http://127.0.0.1:3001'
+
 app.use(function (req, res, next) {
-    res.header("Access-Control-Allow-Origin", "http://127.0.0.1:3001"); // update to match the domain you will make the request from //,127.0.0.1,127.0.0.1:3001,127.0.0.1:3000,http://127.0.0.1:3001,http://127.0.0.1:3000,http://127.0.0.1
+    res.header("Access-Control-Allow-Origin", allow_origin_header); // update to match the domain you will make the request from //,127.0.0.1,127.0.0.1:3001,127.0.0.1:3000,http://127.0.0.1:3001,http://127.0.0.1:3000,http://127.0.0.1
     res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
     res.header("Access-Control-Allow-Credentials", "true")
     next();
