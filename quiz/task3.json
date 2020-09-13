@@ -1,0 +1,123 @@
+{
+    "file": "Task-3",
+    "questionCount": 10,
+    "notice": null,
+    "questions": [
+        {
+            "index": 1,
+            "question": "First Indian woman to win the Novel Peace Prize",
+            "answer": [
+                "Indira Gandhi",
+                "Kalpana Chawla",
+                "Kiran Bedi",
+                "Mother Teresa"
+            ],
+            "correct": 3
+        },
+        {
+            "index": 2,
+            "question": "First Indian woman to reach space",
+            "answer": [
+                "Indira Gandhi",
+                "Kalpana Chawla",
+                "Sunita Williams",
+                "Kalpana Chibb"
+            ],
+            "correct": 1
+        },
+        {
+            "index": 3,
+            "question": "First female judge appointed to the Supereme Court of India",
+            "answer": [
+                "Sainya Sheikh",
+                "Falima Akhtari",
+                "Fathima Beevi",
+                "Indira Banerjee"
+            ],
+            "correct": 2
+        },
+        {
+            "index": 4,
+            "question": "First Indian woman to be ranked Number 1 in WTA (World Tennis Association) double ranking",
+            "answer": [
+                "Saniya Mirza",
+                "Sucheta Kriplani",
+                "Saina Nehwal",
+                "P. V. Sindhu"
+            ],
+            "correct": 0
+        },
+        {
+            "index": 5,
+            "question": "Fist lady Governor of an Indian State",
+            "answer": [
+                "Sarojini Naidu",
+                "Sucheta Kriplani",
+                "Raj Kumari Amrit Kaur",
+                "Vijay Laxmi Pandit"
+            ],
+            "correct": 0
+        },
+        {
+            "index": 6,
+            "question": "First Indian woman to win Miss Earth title",
+            "answer": [
+                "Diya Mirza",
+                "Reita Faria",
+                "Zeenat Aman",
+                "Nicole Faria"
+            ],
+            "correct": 3
+        },
+        {
+            "index": 7,
+            "question": "First lady Chief Minister of an Indian State",
+            "answer": [
+                "Meira Kimar",
+                "Indira Gandhi",
+                "Annie Besant",
+                "Sucheta Kriplani"
+            ],
+            "correct": 3
+        },
+        {
+            "index": 8,
+            "question": "First woman to be awarded with the Bharat Ratna",
+            "answer": [
+                "Meira Kumar",
+                "Indira Gandhi",
+                "Sarojini Naidu",
+                "Pupul Jayakar"
+            ],
+            "correct": 1
+        },
+        {
+            "index": 9,
+            "question": "First Indian woman to win an Olympic Medal",
+            "answer": [
+                "Mary Kom",
+                "Geeta Phogat",
+                "Karnam Malleshwari",
+                "Sakshi Mallik"
+            ],
+            "correct": 2
+        },
+        {
+            "index": 10,
+            "question": "One among the first three women to join Indian Air Force in combat roles",
+            "answer": [
+                "Tania Shergill",
+                "Avani Chaturvedi",
+                "Madhuri Kanitkar",
+                "Priya Jhingan"
+            ],
+            "correct": 1
+        },
+        {
+            "index": 11,
+            "question": "Something went Wrong! Oops",
+            "answer": [],
+            "correct": -1
+        }
+    ]
+}
