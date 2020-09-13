@@ -76,45 +76,45 @@ app.post('/registerUser/:username', (req, res) => {//cors(),
             "score": 0
         }
     }
-    sess.t1_score = {
-        1: 0,
-        2: 0,
-        3: 0,
-        4: 0,
-        5: 0,
-        6: 0,
-        7: 0,
-        8: 0,
-        9: 0,
-        10: 0
-    }
+    // sess.t1_score = {
+    //     1: 0,
+    //     2: 0,
+    //     3: 0,
+    //     4: 0,
+    //     5: 0,
+    //     6: 0,
+    //     7: 0,
+    //     8: 0,
+    //     9: 0,
+    //     10: 0
+    // }
 
-    sess.t2_score = {
-        1: 0,
-        2: 0,
-        3: 0,
-        4: 0,
-        5: 0,
-        6: 0,
-        7: 0,
-        8: 0,
-        9: 0,
-        10: 0
-    }
+    // sess.t2_score = {
+    //     1: 0,
+    //     2: 0,
+    //     3: 0,
+    //     4: 0,
+    //     5: 0,
+    //     6: 0,
+    //     7: 0,
+    //     8: 0,
+    //     9: 0,
+    //     10: 0
+    // }
 
-    sess.t3_score = {
-        1: 0,
-        2: 0,
-        3: 0,
-        4: 0,
-        5: 0,
-        6: 0,
-        7: 0,
-        8: 0,
-        9: 0,
-        10: 0
-    }
-    //console.log(req.session)
+    // sess.t3_score = {
+    //     1: 0,
+    //     2: 0,
+    //     3: 0,
+    //     4: 0,
+    //     5: 0,
+    //     6: 0,
+    //     7: 0,
+    //     8: 0,
+    //     9: 0,
+    //     10: 0
+    // }
+
     res.end("done")
 })
 
@@ -188,7 +188,6 @@ app.get('/listOfQuizzes', (req, res) => {
     let items = Object.keys(files).map((key) => {
         return files[key].file
     })
-    //console.log(files)
     res.json(Object.keys(files).map((key, index) => {
         return { "key": key, "name": files[key].file }
     }))
@@ -200,17 +199,12 @@ app.get('/scores', (req, res) => {
         if (a) {
             console.error(a)
         } else {
-            // console.log(b)
-            // console.log(sessStore)
             let trueVal = []
-            b.forEach((cookieID) => {
-                let nonExistentSessions = 0
-                // console.log(cookieID.split('.')[0])
+            b.forEach((cookieID, index) => {
                 sessStore.get(cookieID.split('.')[0], (err, sess) => {
                     if (err) {
                         console.log(err)
                     } else {
-                        // console.log(sess)
                         try {
                             trueVal.push({
                                 "name": sess.name,
@@ -228,15 +222,14 @@ app.get('/scores', (req, res) => {
                                 }
                             })
                         } catch (Error) {
-                            nonExistentSessions++
+                            console.log(error)
                         }
                     }
 
-                    if ((trueVal.length + nonExistentSessions) === b.length) {
-                        // console.log(trueVal)
-                        res.json(trueVal)
-                    }
                 })
+                if ((index + 1) === b.length) {
+                    res.json(trueVal)
+                }
             })
         }
     })
