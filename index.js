@@ -10,7 +10,8 @@ const FileStore = require('session-file-store')(session)
 
 const files = {
     "t1": JSON.parse(fs.readFileSync('./quiz/task1.json').toString()),
-    "t2": JSON.parse(fs.readFileSync('./quiz/task2.json').toString())
+    "t2": JSON.parse(fs.readFileSync('./quiz/task2.json').toString()),
+    "t3": JSON.parse(fs.readFileSync('./quiz/task3.json').toString())
 }
 const port = process.env.PORT || 3000
 
