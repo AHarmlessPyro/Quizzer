@@ -203,29 +203,35 @@ app.get('/scores', (req, res) => {
             console.log(sessStore)
             let trueVal = []
             b.forEach((cookieID) => {
+                let nonExistentSessions = 0
                 console.log(cookieID.split('.')[0])
                 sessStore.get(cookieID.split('.')[0], (err, sess) => {
                     if (err) {
                         console.log(err)
                     } else {
                         console.log(sess)
-                        trueVal.push({
-                            "name": sess.name,
-                            "t1": {
-                                score: sess.quizTimeObj["t1"].score,
-                                time: sess.quizTimeObj["t1"].start - sess.quizTimeObj["t1"].end
-                            },
-                            "t2": {
-                                score: sess.quizTimeObj["t2"].score,
-                                time: sess.quizTimeObj["t2"].start - sess.quizTimeObj["t2"].end
-                            },
-                            "t3": {
-                                score: sess.quizTimeObj["t3"].score,
-                                time: sess.quizTimeObj["t3"].start - sess.quizTimeObj["t3"].end
-                            }
-                        })
+                        try {
+                            trueVal.push({
+                                "name": sess.name,
+                                "t1": {
+                                    score: sess.quizTimeObj["t1"].score,
+                                    time: sess.quizTimeObj["t1"].start - sess.quizTimeObj["t1"].end
+                                },
+                                "t2": {
+                                    score: sess.quizTimeObj["t2"].score,
+                                    time: sess.quizTimeObj["t2"].start - sess.quizTimeObj["t2"].end
+                                },
+                                "t3": {
+                                    score: sess.quizTimeObj["t3"].score,
+                                    time: sess.quizTimeObj["t3"].start - sess.quizTimeObj["t3"].end
+                                }
+                            })
+                        } catch (Error) {
+                            nonExistentSessions++
+                        }
                     }
-                    if (trueVal.length === b.length) {
+
+                    if ((trueVal.length + nonExistentSessions) === b.length) {
                         console.log(trueVal)
                         res.json(trueVal)
                     }
