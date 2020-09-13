@@ -113,7 +113,7 @@ app.post('/registerUser/:username', (req, res) => {//cors(),
         9: 0,
         10: 0
     }
-    console.log(req.session)
+    //console.log(req.session)
     res.end("done")
 })
 
@@ -187,7 +187,7 @@ app.get('/listOfQuizzes', (req, res) => {
     let items = Object.keys(files).map((key) => {
         return files[key].file
     })
-    console.log(files)
+    //console.log(files)
     res.json(Object.keys(files).map((key, index) => {
         return { "key": key, "name": files[key].file }
     }))
@@ -199,17 +199,17 @@ app.get('/scores', (req, res) => {
         if (a) {
             console.error(a)
         } else {
-            console.log(b)
-            console.log(sessStore)
+            // console.log(b)
+            // console.log(sessStore)
             let trueVal = []
             b.forEach((cookieID) => {
                 let nonExistentSessions = 0
-                console.log(cookieID.split('.')[0])
+                // console.log(cookieID.split('.')[0])
                 sessStore.get(cookieID.split('.')[0], (err, sess) => {
                     if (err) {
                         console.log(err)
                     } else {
-                        console.log(sess)
+                        // console.log(sess)
                         try {
                             trueVal.push({
                                 "name": sess.name,
@@ -232,7 +232,7 @@ app.get('/scores', (req, res) => {
                     }
 
                     if ((trueVal.length + nonExistentSessions) === b.length) {
-                        console.log(trueVal)
+                        // console.log(trueVal)
                         res.json(trueVal)
                     }
                 })
