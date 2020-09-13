@@ -31,8 +31,8 @@ app.use(session({
     saveUninitialized: true,
     cookie: {
         maxAge: 14400000,
-        secure: true,
-        sameSite: 'none'
+        // secure: true,
+        // sameSite: 'none'
     }
 }))
 
@@ -222,14 +222,13 @@ app.get('/scores', (req, res) => {
                                 }
                             })
                         } catch (Error) {
-                            console.log(error)
+                            console.log(err)
                         }
                     }
-
+                    if ((index + 1) === b.length) {
+                        res.json(trueVal)
+                    }
                 })
-                if ((index + 1) === b.length) {
-                    res.json(trueVal)
-                }
             })
         }
     })
