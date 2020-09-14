@@ -5,7 +5,7 @@
     "questions": [
         {
             "index": 1,
-            "question": "First Indian woman to win the Novel Peace Prize",
+            "question": "Who was the first Indian woman to win the Nobel Peace Prize ?",
             "answer": [
                 "Indira Gandhi",
                 "Kalpana Chawla",
@@ -16,7 +16,7 @@
         },
         {
             "index": 2,
-            "question": "First Indian woman to reach space",
+            "question": "Who was the first woman of Indian origin to have reach space ?",
             "answer": [
                 "Indira Gandhi",
                 "Kalpana Chawla",
@@ -27,7 +27,7 @@
         },
         {
             "index": 3,
-            "question": "First female judge appointed to the Supereme Court of India",
+            "question": "Who was the first female judge appointed to the Supereme Court of India ?",
             "answer": [
                 "Sainya Sheikh",
                 "Falima Akhtari",
@@ -38,7 +38,7 @@
         },
         {
             "index": 4,
-            "question": "First Indian woman to be ranked Number 1 in WTA (World Tennis Association) double ranking",
+            "question": "Name the first Indian woman to be ranked Number 1 in WTA (World Tennis Association) double ranking .",
             "answer": [
                 "Saniya Mirza",
                 "Sucheta Kriplani",
@@ -49,7 +49,7 @@
         },
         {
             "index": 5,
-            "question": "Fist lady Governor of an Indian State",
+            "question": "Which one of these ladies was the first female Governor of an Indian State ?",
             "answer": [
                 "Sarojini Naidu",
                 "Sucheta Kriplani",
@@ -60,7 +60,7 @@
         },
         {
             "index": 6,
-            "question": "First Indian woman to win Miss Earth title",
+            "question": "First Indian woman to win Miss Earth title ?",
             "answer": [
                 "Diya Mirza",
                 "Reita Faria",
@@ -71,7 +71,7 @@
         },
         {
             "index": 7,
-            "question": "First lady Chief Minister of an Indian State",
+            "question": "First lady Chief Minister of an Indian State ?",
             "answer": [
                 "Meira Kimar",
                 "Indira Gandhi",
@@ -82,7 +82,7 @@
         },
         {
             "index": 8,
-            "question": "First woman to be awarded with the Bharat Ratna",
+            "question": "Who ws the first woman to be awarded with the Bharat Ratna ?",
             "answer": [
                 "Meira Kumar",
                 "Indira Gandhi",
@@ -93,7 +93,7 @@
         },
         {
             "index": 9,
-            "question": "First Indian woman to win an Olympic Medal",
+            "question": "First Indian woman to win an Olympic Medal ?",
             "answer": [
                 "Mary Kom",
                 "Geeta Phogat",
@@ -104,7 +104,7 @@
         },
         {
             "index": 10,
-            "question": "One among the first three women to join Indian Air Force in combat roles",
+            "question": "One of these four women belongs to the first batch of women to join the Indian Air Force in combat roles. Find her :",
             "answer": [
                 "Tania Shergill",
                 "Avani Chaturvedi",

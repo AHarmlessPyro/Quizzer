@@ -45,11 +45,11 @@
                 "Delhi Central",
                 "New Delhi"
             ],
-            "correct": 3
+            "correct": 0
         },
         {
             "index": 5,
-            "question": "Which organisaation has opened a store similar to Kendriya Bhandar in NMB clib house ?",
+            "question": "Which organisation has opened a store similar to Kendriya Bhandar in NMB clib house ?",
             "answer": [
                 "NAFED",
                 "Amul",
@@ -62,10 +62,10 @@
             "index": 6,
             "question": "Under which police station's jurisdiction does NMB lie in ?",
             "answer": [
-                "a",
-                "b",
-                "c",
-                "d"
+                "Chandni Chowk",
+                "Sarojini Nagar",
+                "Raj Path",
+                "Delhi Cantt."
             ],
             "correct": 1
         },
@@ -75,7 +75,7 @@
             "answer": [
                 "South Delhi",
                 "Chandni Chowk",
-                "New Delhi",
+                "Delhi Cantt.",
                 "West Delhi"
             ],
             "correct": 2
@@ -111,7 +111,7 @@
                 "2012",
                 "2013"
             ],
-            "correct": 2
+            "correct": 1
         },
         {
             "index": 11,
