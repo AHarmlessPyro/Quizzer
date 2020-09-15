@@ -132,7 +132,7 @@ app.post('/endTimer/:time/:quiz', jsonParser, (req, res) => {
     res.end()
 })
 
-app.post('/getQuestion/:quiz/:number/:prevTruth?', jsonParser, (req, res) => {
+app.get('/getQuestion/:quiz/:number/:backOrForward/:prevTruth?', jsonParser, (req, res) => {
 
     let currentQuiz = files[req.params.quiz]
 
@@ -149,7 +149,7 @@ app.post('/getQuestion/:quiz/:number/:prevTruth?', jsonParser, (req, res) => {
     }
 
     res.json({
-        "questions": currentQuiz.questions[req.body.back ? req.params.number - 2 : req.params.number],
+        "questions": currentQuiz.questions[req.params.backOrForward === 'back' ? req.params.number - 2 : req.params.number],
         "maxCount": currentQuiz.questionCount,
         "notice": currentQuiz.notice
     })
