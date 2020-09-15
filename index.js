@@ -129,7 +129,7 @@ app.post('/endTimer/:time/:quiz', jsonParser, (req, res) => {
     res.end()
 })
 
-app.get('/getQuestion/:quiz/:number/:prevTruth?', jsonParser, (req, res) => {
+app.post('/getQuestion/:quiz/:number/:prevTruth?', jsonParser, (req, res) => {
 
     let currentQuiz = files[req.params.quiz]
 
