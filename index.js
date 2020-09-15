@@ -61,59 +61,21 @@ app.post('/registerUser/:username', (req, res) => {//cors(),
             "start": null,
             "end": null,
             "last": 0,
-            "score": 0
+            "score": [0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
         },
         "t2": {
             "start": null,
             "end": null,
             "last": 0,
-            "score": 0
+            "score": [0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
         },
         "t3": {
             "start": null,
             "end": null,
             "last": 0,
-            "score": 0
+            "score": [0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
         }
     }
-    // sess.t1_score = {
-    //     1: 0,
-    //     2: 0,
-    //     3: 0,
-    //     4: 0,
-    //     5: 0,
-    //     6: 0,
-    //     7: 0,
-    //     8: 0,
-    //     9: 0,
-    //     10: 0
-    // }
-
-    // sess.t2_score = {
-    //     1: 0,
-    //     2: 0,
-    //     3: 0,
-    //     4: 0,
-    //     5: 0,
-    //     6: 0,
-    //     7: 0,
-    //     8: 0,
-    //     9: 0,
-    //     10: 0
-    // }
-
-    // sess.t3_score = {
-    //     1: 0,
-    //     2: 0,
-    //     3: 0,
-    //     4: 0,
-    //     5: 0,
-    //     6: 0,
-    //     7: 0,
-    //     8: 0,
-    //     9: 0,
-    //     10: 0
-    // }
 
     res.end("done")
 })
@@ -124,7 +86,7 @@ app.post('/startTimer/:time/:quiz', (req, res) => {
     let sess = req.session
 
     let quizObj = sess.quizTimeObj
-    if (sess.quizTimeObj[quiz].last !== 0) {
+    if (sess.quizTimeObj[quiz].start !== null) {
         res.json({
             "redirectTo": sess.quizTimeObj[quiz].last,
             "startTime": sess.quizTimeObj[quiz].start
@@ -132,7 +94,7 @@ app.post('/startTimer/:time/:quiz', (req, res) => {
     } else {
         quizObj[quiz].start = time
         res.json({
-            "redirectTo": 0,
+            "redirectTo": sess.quizTimeObj[quiz].last, // should be last item, defaults to 0
             "startTime": time
         })
     }
@@ -167,17 +129,20 @@ app.post('/endTimer/:time/:quiz', jsonParser, (req, res) => {
     res.end()
 })
 
-app.get('/getQuestion/:quiz/:number/:prevTruth?', (req, res) => {
+app.get('/getQuestion/:quiz/:number/:prevTruth?', jsonParser, (req, res) => {
 
     let currentQuiz = files[req.params.quiz]
 
     if (req.params.prevTruth && req.params.prevTruth === 'true') {
-        req.session.quizTimeObj[req.params.quiz].score += 1
+        req.session.quizTimeObj[req.params.quiz].score[req.params.number - 1] = 1
+        req.session.quizTimeObj[req.params.quiz].last = req.params.number
+    } else if (req.params.prevTruth && req.params.prevTruth === 'false') {
+        req.session.quizTimeObj[req.params.quiz].score[req.params.number - 1] = 0
+        req.session.quizTimeObj[req.params.quiz].last = req.params.number
     }
-    req.session.quizTimeObj[req.params.quiz].last = req.params.number
 
     res.json({
-        "questions": currentQuiz.questions[req.params.number],
+        "questions": currentQuiz.questions[req.body.back ? req.params.number - 2 : req.params.number],
         "maxCount": currentQuiz.questionCount,
         "notice": currentQuiz.notice
     })
@@ -194,7 +159,8 @@ app.get('/listOfQuizzes', (req, res) => {
 })
 
 app.get('/scores', (req, res) => {
-    let sessStore = req.sessionStore;
+    let sessStore = req.sessionStore
+    let sessCurr = req.session
     req.sessionStore.list((a, b) => {
         if (a) {
             console.error(a)
@@ -209,16 +175,16 @@ app.get('/scores', (req, res) => {
                             trueVal.push({
                                 "name": sess.name,
                                 "t1": {
-                                    score: sess.quizTimeObj["t1"].score,
-                                    time: sess.quizTimeObj["t1"].start - sess.quizTimeObj["t1"].end
+                                    score: sess.quizTimeObj["t1"].score.reduce(reduceAdd),
+                                    time: sess.quizTimeObj["t1"].end - sess.quizTimeObj["t1"].start
                                 },
                                 "t2": {
-                                    score: sess.quizTimeObj["t2"].score,
-                                    time: sess.quizTimeObj["t2"].start - sess.quizTimeObj["t2"].end
+                                    score: sess.quizTimeObj["t2"].score.reduce(reduceAdd),
+                                    time: sess.quizTimeObj["t2"].end - sess.quizTimeObj["t2"].start
                                 },
                                 "t3": {
-                                    score: sess.quizTimeObj["t3"].score,
-                                    time: sess.quizTimeObj["t3"].start - sess.quizTimeObj["t3"].end
+                                    score: sess.quizTimeObj["t3"].score.reduce(reduceAdd),
+                                    time: sess.quizTimeObj["t3"].end - sess.quizTimeObj["t3"].start
                                 }
                             })
                         } catch (Error) {
@@ -226,7 +192,31 @@ app.get('/scores', (req, res) => {
                         }
                     }
                     if ((index + 1) === b.length) {
-                        res.json(trueVal)
+                        let t1_scores_sorted = trueVal.sort((person_a, person_b) => comparator(person_a, person_b, "t1")).slice(0, Math.max(10, trueVal.length))
+                        let t2_scores_sorted = trueVal.sort((person_a, person_b) => comparator(person_a, person_b, "t2")).slice(0, Math.max(10, trueVal.length))
+                        let t3_scores_sorted = trueVal.sort((person_a, person_b) => comparator(person_a, person_b, "t3")).slice(0, Math.max(10, trueVal.length))
+                        let selfTime = {
+                            "name": sessCurr.quizTimeObj.name,
+                            "t1": {
+                                "time": (sessCurr.quizTimeObj["t1"].end ? (new Date()).getTime() : sessCurr.quizTimeObj["t1"].end) - sessCurr.quizTimeObj["t1"].start,
+                                "score": sessCurr.quizTimeObj["t1"].score.reduce(reduceAdd)
+                            },
+                            "t2": {
+                                "time": (sessCurr.quizTimeObj["t2"].end ? (new Date()).getTime() : sessCurr.quizTimeObj["t2"].end) - sessCurr.quizTimeObj["t2"].start,
+                                "score": sessCurr.quizTimeObj["t2"].score.reduce(reduceAdd)
+                            },
+                            "t3": {
+                                "time": (sessCurr.quizTimeObj["t3"].end ? (new Date()).getTime() : sessCurr.quizTimeObj["t3"].end) - sessCurr.quizTimeObj["t3"].start,
+                                "score": sessCurr.quizTimeObj["t3"].score.reduce(reduceAdd)
+                            }
+                        }
+                        res.json({
+                            "t1": t1_scores_sorted,
+                            "t2": t2_scores_sorted,
+                            "t3": t3_scores_sorted,
+                            "self": selfTime
+
+                        })
                     }
                 })
             })
@@ -240,3 +230,29 @@ const server = app.listen(port, () => {
 
     console.log('App listening at http://%s:%s', host, port);
 })
+
+
+
+/**
+ * HELPER FUNCTIONS
+ */
+
+let comparator = (person_a, person_b, field) => {
+    if (person_a['field'].score > person_b[field].score) {
+        return -1
+    } else if (person_a[field].score < person_b[field].score) {
+        return +1
+    } else {
+        if (person_a[field].time < person_b[field].time) {
+            return -1
+        } else if (person_a[field].time > person_b[field].time) {
+            return +1
+        } else {
+            return 0
+        }
+    }
+}
+
+let reduceAdd = (acc, curr) => {
+    return acc + curr
+}
