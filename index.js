@@ -103,11 +103,13 @@ app.post('/startTimer/:time/:quiz', (req, res) => {
 app.get('/isUserRegistered', (req, res) => {//cors(),
     if (req.session.name !== null && req.session.name !== undefined) {
         res.json({
-            'reg': true
+            'reg': true,
+            "user": req.session.name
         })
     } else {
         res.json({
-            "reg": false
+            "reg": false,
+            "user": req.session.name
         })
     }
 })
@@ -126,6 +128,7 @@ app.get('/getTimer', (req, res) => {
 
 app.post('/endTimer/:time/:quiz', jsonParser, (req, res) => {
     req.session.quizTimeObj[req.params.quiz].end = req.params.time
+    req.session.quizTimeObj[req.params.quiz].last = files[req.params.quiz].maxCount
     res.end()
 })
 
