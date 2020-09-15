@@ -183,15 +183,15 @@ app.get('/scores', (req, res) => {
                                 "name": sess.name,
                                 "t1": {
                                     score: sess.quizTimeObj["t1"].score.reduce(reduceAdd),
-                                    time: (sess.quizTimeObj["t1"].end ? (new Date()).getTime() : sess.quizTimeObj["t1"].end) - sess.quizTimeObj["t1"].start
+                                    time: (sess.quizTimeObj["t1"].end ? (new Date()).getTime() : parseInt(sess.quizTimeObj["t1"].end)) - parseInt(sess.quizTimeObj["t1"].start)
                                 },
                                 "t2": {
                                     score: sess.quizTimeObj["t2"].score.reduce(reduceAdd),
-                                    time: (sess.quizTimeObj["t2"].end ? (new Date()).getTime() : sess.quizTimeObj["t2"].end) - sess.quizTimeObj["t2"].start
+                                    time: (sess.quizTimeObj["t2"].end ? (new Date()).getTime() : parseInt(sess.quizTimeObj["t2"].end)) - parseInt(sess.quizTimeObj["t2"].start)
                                 },
                                 "t3": {
                                     score: sess.quizTimeObj["t3"].score.reduce(reduceAdd),
-                                    time: (sess.quizTimeObj["t3"].end ? (new Date()).getTime() : sess.quizTimeObj["t3"].end) - sess.quizTimeObj["t3"].start
+                                    time: (sess.quizTimeObj["t3"].end ? (new Date()).getTime() : parseInt(sess.quizTimeObj["t3"].end)) - parseInt(sess.quizTimeObj["t3"].start)
                                 }
                             })
                         } catch (Error) {
