@@ -136,6 +136,10 @@ app.post('/getQuestion/:quiz/:number/:prevTruth?', jsonParser, (req, res) => {
 
     let currentQuiz = files[req.params.quiz]
 
+    console.log("In /getQuestions")
+    console.log(req.params)
+    console.log(req.body)
+
     if (req.params.prevTruth && req.params.prevTruth === 'true') {
         req.session.quizTimeObj[req.params.quiz].score[req.params.number - 1] = 1
         req.session.quizTimeObj[req.params.quiz].last = req.params.number
