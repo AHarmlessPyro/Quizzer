@@ -9,6 +9,8 @@ interface QuizData {
   createdAt: string
 }
 
+export const maxDuration = 60;
+
 export default async function QuizPage({ params }: { params: { id: string } }) {
   const quizData = await kv.get<QuizData>(`quiz:${params.id}`)
 

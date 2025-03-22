@@ -1,5 +1,7 @@
-import { ScrapeForm } from "@/components/scrape-form"
-import { Heart } from "lucide-react"
+import { ScrapeForm } from "@/components/scrape-form";
+import { Heart } from "lucide-react";
+
+export const maxDuration = 60;
 
 export default function Home() {
   return (
@@ -16,7 +18,9 @@ export default function Home() {
         <div className="w-full max-w-md space-y-8">
           <div className="text-center">
             <h2 className="text-3xl font-bold mb-2">Learn from any website</h2>
-            <p className="text-gray-400">Enter a URL below to create a quiz from its content</p>
+            <p className="text-gray-400">
+              Enter a URL below to create a quiz from its content
+            </p>
           </div>
 
           <ScrapeForm />
@@ -27,6 +31,5 @@ export default function Home() {
         </div>
       </main>
     </div>
-  )
+  );
 }
-
