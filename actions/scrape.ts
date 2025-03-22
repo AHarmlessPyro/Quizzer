@@ -1,16 +1,18 @@
-"use server"
+"use server";
 
-import { Hyperbrowser } from "@hyperbrowser/sdk"
-import { kv } from "@vercel/kv"
-import { nanoid } from "nanoid"
+import { Hyperbrowser } from "@hyperbrowser/sdk";
+import { kv } from "@vercel/kv";
+import { nanoid } from "nanoid";
+import { generateQuestions } from "./generate-questions";
 
 export async function scrapeWebsite(url: string) {
   try {
+    console.log("1. Scraping website...");
     // Initialize Hyperbrowser client
     const client = new Hyperbrowser({
       apiKey: process.env.HYPERBROWSER_API_KEY,
-    })
-
+    });
+    console.log("2. Created Hyperbrowser client");
     // Scrape the website
     const scrapeResult = await client.scrape.startAndWait({
       url,
@@ -18,72 +20,60 @@ export async function scrapeWebsite(url: string) {
         formats: ["markdown"],
         onlyMainContent: true,
       },
-    })
+    });
+
+    console.log(
+      `3. Scraped website ${url} => length: ${scrapeResult.data?.markdown?.length}`
+    );
 
     if (!scrapeResult.data?.markdown) {
-      throw new Error("Failed to scrape website content")
+      throw new Error("Failed to scrape website content");
     }
 
-    console.log("Successfully scraped website, generating questions...")
+    console.log("Successfully scraped website, generating questions...");
 
     try {
-      // Determine the base URL for the API
-      // In development, use localhost
-      // In production, use the absolute URL with the VERCEL_URL environment variable
-      const baseUrl =
-        process.env.NODE_ENV === "production" && process.env.VERCEL_URL
-          ? `https://${process.env.VERCEL_URL}`
-          : "http://localhost:3000"
+      // Call the generateQuestions server action directly
+      const data = await generateQuestions(scrapeResult.data.markdown, url);
 
-      const apiUrl = `${baseUrl}/api/generate-questions`
-
-      console.log(`Calling API at: ${apiUrl}`)
-
-      const response = await fetch(apiUrl, {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({
-          content: scrapeResult.data.markdown,
-          url,
-        }),
-      })
-
-      if (!response.ok) {
-        const errorText = await response.text()
-        throw new Error(`API error: ${response.status} ${response.statusText} - ${errorText}`)
-      }
-
-      const data = await response.json()
-      const questions = data.questions
+      console.log("Generated questions:", data);
+      const questions = data.questions;
 
       if (!questions || questions.length === 0) {
-        throw new Error("Failed to generate questions from content")
+        throw new Error("Failed to generate questions from content");
       }
 
-      console.log(`Successfully generated ${questions.length} questions`)
+      console.log(`Successfully generated ${questions.length} questions`);
+
+      console.log("Storing questions in KV store...");
 
       // Store questions in KV store with a unique ID
-      const quizId = nanoid()
+      const quizId = nanoid();
       await kv.set(`quiz:${quizId}`, {
         url,
         questions,
         createdAt: new Date().toISOString(),
-      })
+      });
 
-      return quizId
+      console.log("Questions stored in KV store:", quizId);
+
+      return quizId;
     } catch (questionError) {
-      console.error("Error generating questions:", questionError)
+      console.error("Error generating questions:", questionError);
       throw new Error(
-        `Failed to generate questions: ${questionError instanceof Error ? questionError.message : String(questionError)}`,
-      )
+        `Failed to generate questions: ${
+          questionError instanceof Error
+            ? questionError.message
+            : String(questionError)
+        }`
+      );
     }
   } catch (error) {
-    console.error("Error in scrapeWebsite:", error)
+    console.error("Error in scrapeWebsite:", error);
     throw new Error(
-      `Failed to scrape website and generate quiz: ${error instanceof Error ? error.message : String(error)}`,
-    )
+      `Failed to scrape website and generate quiz: ${
+        error instanceof Error ? error.message : String(error)
+      }`
+    );
   }
 }
-
