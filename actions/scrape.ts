@@ -2,9 +2,31 @@
 
 import { Hyperbrowser } from "@hyperbrowser/sdk";
 import { kv } from "@vercel/kv";
-import { nanoid } from "nanoid";
+import { createHash } from "crypto";
 import { generateQuestions } from "./generate-questions";
 
+// Set maximum duration for this server action (60 seconds)
+export const runtime = "nodejs";
+export const maxDuration = 60;
+
+/**
+ * Creates a hash from a URL after removing query and search parameters
+ */
+function getUrlHash(url: string): string {
+  try {
+    // Parse the URL and remove query parameters
+    const parsedUrl = new URL(url);
+    parsedUrl.search = "";
+    parsedUrl.hash = "";
+    const cleanUrl = parsedUrl.host + parsedUrl.pathname;
+
+    // Create a hash of the clean URL
+    return createHash("sha256").update(cleanUrl).digest("hex").substring(0, 10);
+  } catch (error) {
+    // If URL parsing fails, hash the original URL
+    return createHash("sha256").update(url).digest("hex").substring(0, 10);
+  }
+}
 
 export async function scrapeWebsite(url: string) {
   try {
@@ -48,8 +70,10 @@ export async function scrapeWebsite(url: string) {
 
       console.log("Storing questions in KV store...");
 
-      // Store questions in KV store with a unique ID
-      const quizId = nanoid();
+      // Generate a hash of the URL as the quiz ID
+      const quizId = getUrlHash(url);
+
+      // Store questions in KV store with the URL hash
       await kv.set(`quiz:${quizId}`, {
         url,
         questions,
