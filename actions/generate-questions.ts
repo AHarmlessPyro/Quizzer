@@ -4,6 +4,10 @@ import OpenAI from "openai";
 import { ChatCompletionCreateParamsNonStreaming } from "openai/resources/chat/completions";
 import { z } from "zod";
 
+// Set maximum duration for this server action (60 seconds)
+export const runtime = "nodejs";
+export const maxDuration = 60;
+
 // Define schema for a single quiz question
 const QuizQuestion = z.object({
   question: z.string(),

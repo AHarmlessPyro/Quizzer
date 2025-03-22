@@ -5,6 +5,10 @@ import { kv } from "@vercel/kv";
 import { nanoid } from "nanoid";
 import { generateQuestions } from "./generate-questions";
 
+// Set maximum duration for this server action (60 seconds)
+export const runtime = "nodejs";
+export const maxDuration = 60;
+
 export async function scrapeWebsite(url: string) {
   try {
     console.log("1. Scraping website...");
