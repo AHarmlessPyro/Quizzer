@@ -1,9 +1,14 @@
-import './globals.css'
-import type { Metadata } from 'next'
+import type React from "react"
+import "./globals.css"
+import type { Metadata } from "next"
+import { Inter } from "next/font/google"
+
+const inter = Inter({ subsets: ["latin"] })
 
 export const metadata: Metadata = {
-  title: 'Duolingo Quiz App',
-  description: 'An interactive quiz application',
+  title: "WebQuiz - Learn from any website",
+  description: "Create quizzes from any website content using AI",
+    generator: 'v0.dev'
 }
 
 export default function RootLayout({
@@ -13,9 +18,11 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en">
-      <body>
-        {children}
-      </body>
+      <body className={inter.className}>{children}</body>
     </html>
   )
-} 
+}
+
+
+
+import './globals.css'
