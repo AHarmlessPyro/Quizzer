@@ -131,3 +131,4 @@ export async function generateQuestions(content: string, url: string) {
     );
   }
 }
+export default generateQuestions;

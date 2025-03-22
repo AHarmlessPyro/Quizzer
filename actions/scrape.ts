@@ -81,3 +81,5 @@ export async function scrapeWebsite(url: string) {
     );
   }
 }
+
+export default scrapeWebsite;
